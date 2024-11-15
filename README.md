@@ -27,13 +27,13 @@ _After donwloading all prequities, you can follow this setup steps:_
     ```sh
     cd todo-apps-devops
     ```
-3. Install npm inside the project
+3. To build the docker
     ```sh
-    npm install
+    docker build -t todo-apps .
     ```
-4. To run the project
+4. To run the docker
     ```sh
-    npm run dev
+    docker run -it -p 8080:8080 todo-apps
     ```
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

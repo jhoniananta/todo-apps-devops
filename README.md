@@ -1,50 +1,44 @@
 # React + TypeScript + Vite
 
+## Getting Started with React Project
+
+To get local copy up and running follow these simple example steps.
+
+#### Prerequisites
+
+You need to download and install some tools to run todo-apps-devops
+
+-   #### Docker
+
+    visit docker official installation based on your machine: [Download](https://www.docker.com/products/docker-desktop/)
+
+-   #### Node.js
+    visit Node.js official installation based on your machine: [Download](https://nodejs.org/en)
+
+#### Setup
+
+_After donwloading all prequities, you can follow this setup steps:_
+
+1. Clone the repo
+    ```sh
+    git clone https://github.com/jhoniananta/todo-apps-devops.git
+    ```
+2. Go to clone directory
+    ```sh
+    cd todo-apps-devops
+    ```
+3. Install npm inside the project
+    ```sh
+    npm install
+    ```
+4. To run the project
+    ```sh
+    npm run dev
+    ```
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+-   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+-   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

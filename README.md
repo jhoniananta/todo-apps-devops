@@ -9,7 +9,6 @@ To get local copy up and running follow these simple example steps.
 You need to download and install some tools to run todo-apps-devops
 
 -   #### Docker
-
     visit docker official installation based on your machine: [Download](https://www.docker.com/products/docker-desktop/)
 
 -   #### Node.js
@@ -17,7 +16,7 @@ You need to download and install some tools to run todo-apps-devops
 
 #### Setup
 
-_After donwloading all prequities, you can follow this setup steps:_
+_After downloading all prequities, you can follow this setup steps:_
 
 1. Clone the repo
     ```sh
@@ -27,10 +26,24 @@ _After donwloading all prequities, you can follow this setup steps:_
     ```sh
     cd todo-apps-devops
     ```
-3. Open the docker desktop
-4. Run the docker
+3. Install package manage for frontend side
+    ```sh
+    cd frontend
+    npm install
+    ```
+3. Install package manage for backend side
+    ```sh
+    cd backend
+    npm install
+    ```
+4. Open the docker desktop
+5. Run the docker
     ```sh
     docker compose up --watch
+    ```
+    if this things doesn't work run the docker using:
+    ```sh
+    docker compose watch
     ```
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -1,0 +1,30 @@
+#Start your image with a node base image
+FROM node:18-alpine
+
+# The /app directory should act as the main application
+WORKDIR /app
+
+# Copy package.json that save dependencies
+COPY package*.json ./
+
+# Install Nodemon
+RUN npm install -g nodemon
+
+# Install dependencies
+RUN npm install
+
+# Copy the project without node_modules
+COPY . .
+
+# Expose the port 500
+ENV port=5000
+
+EXPOSE 5000
+
+# Run the application
+CMD ["npm", "run", "dev"]
+
+
+
+
+

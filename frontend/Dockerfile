@@ -1,7 +1,7 @@
 #Start your image with a node base image
 FROM node:18-alpine
 
-# The /app directory should act as the main application
+# The /frontend directory should act as the main application
 WORKDIR /app
 
 # Copy package.json that save dependencies

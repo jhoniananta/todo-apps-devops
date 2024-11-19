@@ -17,7 +17,7 @@ app.get("/health", (req, res) => {
 
 // Define route for the root path
 app.get('/', (req, res) => {
-    res.status(200).send('Welcome to the Todo App API!kekekekek');
+    res.status(200).send('Welcome to the Todo App API! auto reload');
 });
 
 // const PORT = 5000;

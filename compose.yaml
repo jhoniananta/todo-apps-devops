@@ -1,48 +1,59 @@
+version: '3.8'
 services:
-  app:
+  frontend:
+    restart: always
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
-      NOD_ENV: development
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true  # Enable polling for better file watching in Docker
     volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
+      - ./frontend:/app  # Mount the frontend directory
+      - frontend_node_modules:/app/node_modules  # Named volume for node_modules
     develop:
       watch:
-        - action: sync
+        - action: sync+restart
           path: ./frontend/src
-          target: /frontend/src
+          target: /app/src
           ignore:
-            - node_modules
+            - node_modules/
+            - build/
+            - '*.test.tsx'
         - action: rebuild
-          path: package.json
+          path: ./frontend
+          target: package.json
+    command: npm run dev  # Assuming you have a dev script with hot reload
 
-  # be:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:5000"
-  #   environment:
-  #     NOD_ENV: development
-  # volumes:
-  #   - ./backend-sync:/backend
-  #   - /backend/node_modules
-  # command: nodemon server.js
-  # develop:
-  #   watch:
-  #     - action: sync
-  #       path: ./backend
-  #       target: /backend/src
-  #       ignore:
-  #        - node_modules
-  #     - action: rebuild
-  #       path: package.json
-# volumes:
-#   frontend-sync:
-#     external: true
-#   backend-sync:
-#     external: true
+  backend:
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./backend:/app  # Mount the backend directory
+      - backend_node_modules:/app/node_modules  # Named volume for node_modules
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./backend/src
+          target: /*
+          ignore:
+            - node_modules/
+            - dist/
+            - '*.test.js'
+        - action: rebuild
+          path: ./backend
+          target: package.json
+    command: npm run dev  # Assuming you have a dev script with hot reload
+
+volumes:
+  frontend_node_modules:
+  backend_node_modules:

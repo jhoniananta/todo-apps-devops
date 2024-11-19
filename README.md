@@ -31,13 +31,13 @@ _After downloading all prequities, you can follow this setup steps:_
     cd frontend
     npm install
     ```
-3. Install package manage for backend side
+4. Install package manage for backend side
     ```sh
     cd backend
     npm install
     ```
-4. Open the docker desktop
-5. Run the docker
+5. Open the docker desktop
+6. Run the docker in root folder
     ```sh
     docker compose up --watch
     ```

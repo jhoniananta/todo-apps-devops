@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # The /frontend directory should act as the main application
-WORKDIR /frontend
+WORKDIR /app
 
 # Copy package.json that save dependencies
 COPY package*.json ./

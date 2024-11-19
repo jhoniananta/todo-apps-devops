@@ -6,7 +6,7 @@ import './styles/style.css';
 function App() {
   return (
     <>
-      <h1 className="text-center bg-blue-50">Hello World Test PSO halo gais welcome back to my youtube</h1>
+      <h1 className="text-center bg-blue-50">Hello World Test PSO halo gais welcome back to</h1>
     </>
   );
 }

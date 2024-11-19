@@ -7,11 +7,11 @@ WORKDIR /app
 # Copy package.json that save dependencies
 COPY package*.json ./
 
-# Install Nodemon
-RUN npm install -g nodemon
-
 # Install dependencies
 RUN npm install
+
+# Install Nodemon
+RUN npm install -g nodemon
 
 # Copy the project without node_modules
 COPY . .
@@ -22,7 +22,7 @@ ENV port=5000
 EXPOSE 5000
 
 # Run the application
-CMD ["npm", "run", "dev"]
+CMD ["nodemon", "server.js"]
 
 
 

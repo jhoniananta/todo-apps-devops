@@ -1,34 +1,48 @@
 services:
   app:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
       NOD_ENV: development
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
     develop:
       watch:
         - action: sync
-          path: ./src
-          target: /app/src
+          path: ./frontend/src
+          target: /frontend/src
           ignore:
-           - node_modules
+            - node_modules
         - action: rebuild
           path: package.json
 
-  be:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    environment:
-      NOD_ENV: development
-    develop:
-      watch:
-        - action: sync
-          ignore:
-           - node_modules
-        - action: rebuild
-          path: package.json
+  # be:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     NOD_ENV: development
+  # volumes:
+  #   - ./backend-sync:/backend
+  #   - /backend/node_modules
+  # command: nodemon server.js
+  # develop:
+  #   watch:
+  #     - action: sync
+  #       path: ./backend
+  #       target: /backend/src
+  #       ignore:
+  #        - node_modules
+  #     - action: rebuild
+  #       path: package.json
+# volumes:
+#   frontend-sync:
+#     external: true
+#   backend-sync:
+#     external: true

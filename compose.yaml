@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 services:
   frontend:
     restart: always
@@ -6,7 +6,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - '8080:8080'
+      - '3000:3000'
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true  # Enable polling for better file watching in Docker

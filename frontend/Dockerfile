@@ -9,17 +9,19 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
+RUN npm i -g serve
 
 # Copy the project without node_modules
 COPY . .
 
-# Expose the port 5173
-ENV port=8080
+# Build the project
+RUN npm run build
 
-EXPOSE 8080
+# Expose the port 3000
+EXPOSE 3000
 
 # Run the application
-CMD ["npm", "run", "dev"]
+CMD ["serve", "-s", "dist"]
 
 
 

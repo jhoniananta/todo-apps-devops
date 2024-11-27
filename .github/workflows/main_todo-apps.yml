@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP.Net Core app to Azure Web App - todo-apps
+name: Deploy to Azure App Service
 
 on:
   push:
@@ -10,56 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: windows-latest
-
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - name: Set up Node.js version
+        uses: actions/setup-node@v4
         with:
-          dotnet-version: '6.0.x'
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0286AB71A79049FAA5C95543F94DDB6C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0B23A4B9F4B348B78CB5386870F574AE }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5C6671E277A24B3ABB69B0F9E24CB8F0 }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
+          node-version: '18.x'
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+      - name: Build
+        working-directory: ./frontend    
+        run: npm run build
+      - name: Deploy to Azure App Service
+        uses: Azure/webapps-deploy@v2
         with:
           app-name: 'todo-apps'
-          slot-name: 'Production'
-          package: .
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./frontend
+      
+      
+      
           

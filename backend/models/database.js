@@ -78,6 +78,13 @@ export default class Database {
     return result.recordset[0];
   }
 
+  async readPriorities() {
+    const request = this.poolconnection.request();
+    const result = await request.query(`SELECT * FROM priorities`);
+
+    return result.recordsets[0];
+  }
+
   async update(id, data) {
     const request = this.poolconnection.request();
   

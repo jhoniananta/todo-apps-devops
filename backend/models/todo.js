@@ -20,6 +20,18 @@ router.get('/', async (req, res) => {
     }
   });
 
+router.get('/priorities', async (req, res) => {
+    try {
+      // Return a list of priority
+  
+      const priority = await database.readPriorities();
+      console.log(`priority: ${JSON.stringify(priority)}`);
+      res.status(200).json(priority);
+    } catch (err) {
+      res.status(500).json({ error: err?.message });
+    }
+  });
+
 router.post('/', async (req, res) => {
     try {
       // add a tasks

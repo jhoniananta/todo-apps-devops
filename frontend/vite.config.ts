@@ -9,7 +9,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/frontend/",
+  base: "/",
   plugins: [react()],
   preview: {
     port: 3000,

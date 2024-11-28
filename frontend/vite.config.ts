@@ -10,6 +10,7 @@ export default defineConfig({
     },
   },
   base: "/",
+  
   plugins: [react()],
   preview: {
     port: 3000,

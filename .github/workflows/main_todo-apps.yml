@@ -18,10 +18,20 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@v4
+    - name: Set up Node.js version
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.node-version}}
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: npm install  
+
     - name: Test Eslint Check
       working-directory: ./frontend
       run: npm run lint
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     strategy:
       matrix:

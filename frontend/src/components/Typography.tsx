@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import clsxm from '../lib/clsxm';
 
-export enum TypographyVariant {
+enum TypographyVariant {
   'c1',
   'c2',
   'btn',
@@ -17,7 +17,7 @@ export enum TypographyVariant {
   'h6',
 }
 
-export enum TypographyColor {
+enum TypographyColor {
   'white',
   'surface',
   'outline',

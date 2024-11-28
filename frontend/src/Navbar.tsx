@@ -1,7 +1,6 @@
 import React from "react";
 import Typography from "./components/Typography";
 import { Input } from "./components/InputRightIcon";
-import FilterIcon from "../public/icons/filter.png";
 
 type NavbarProps = {
   children: React.ReactNode;

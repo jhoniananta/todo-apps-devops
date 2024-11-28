@@ -18,8 +18,8 @@ export default function Navbar({ children, isMobile }: NavbarProps) {
       </div>
       <div className="px-4 sm:px-0 flex gap-4 items-center">
         <Input placeholder="Search" />
-        <img src="/public/icons/filter.png" alt="TIkak ada" className="hidden sm:block"/>
-        <img src="/public/icons/filter-black.png" alt="TIkak ada" className="block sm:hidden"/>
+        <img src="/icons/filter.png" alt="TIkak ada" className="hidden sm:block"/>
+        <img src="/icons/filter-black.png" alt="TIkak ada" className="block sm:hidden"/>
       </div>
     </div>
   );

@@ -105,3 +105,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+input[type="date"] {
+  width: 100%; 
+  padding-left: 10px; 
+  padding-right: 40px; 
+  box-sizing: border-box; 
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 3rem; 
+  color: transparent;
+  z-index: 1;
+  cursor: pointer;
+}
+@media (max-width: 1017px) {
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    right: 2rem;
+  }
+}

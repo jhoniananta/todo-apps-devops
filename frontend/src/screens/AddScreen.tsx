@@ -85,7 +85,6 @@ const AddScreen = () => {
         <Input
           id="date-input"
           type="date"
-          placeholder="When should to be finished?"
           className="w-full"
         />
       </form>
@@ -103,7 +102,8 @@ const AddScreen = () => {
           style={{
             width: "120px", 
             height: "22px", 
-            backgroundColor: "#E4EDFF",
+            backgroundColor: "#f8f9fa",
+            border: "1px solid #ccc",
             borderRadius: "8px",
           }}
         >
@@ -113,8 +113,9 @@ const AddScreen = () => {
           style={{
             width: "120px", 
             height: "22px", 
-            backgroundColor: "#E4EDFF",
-            color: "#000000",
+            backgroundColor: "#007bff",
+            color: "#ffffff",
+            border: "none",
             borderRadius: "8px",
           }}
         >

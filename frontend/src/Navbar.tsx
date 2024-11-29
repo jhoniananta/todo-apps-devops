@@ -5,10 +5,9 @@ import { useLocation } from "react-router-dom";
 
 type NavbarProps = {
   children: React.ReactNode;
-  isMobile: boolean;
 };
 
-export default function Navbar({ children, isMobile }: NavbarProps) {
+export default function Navbar({ children }: NavbarProps) {
   const location = useLocation();
 
 const getNavbarTitle = () => {

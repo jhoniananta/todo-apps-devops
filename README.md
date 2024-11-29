@@ -1,4 +1,15 @@
-# React + TypeScript + Vite
+# Todo Apps
+Todo App is a ToDo List App to help you managae and track down your daily activities. This project is developed by
+
+<ul>
+    <li><a href="https://github.com/jhoniananta">Jhoni</a></li>
+    <li><a href="https://github.com/bryanmichaelk">Bryan</a></li>
+    <li><a href="https://github.com/dwiindahr">Dwi Indah</a></li>
+    <li><a href="https://github.com/KrisnaSetia">Krisna Setia</a></li>
+</ul>
+
+For further Read Me Configuration acces this link:
+[ReadMeConfiguration](https://its.id/m/KonfigurasiTODOAPPS)
 
 ## Getting Started with React Project
 

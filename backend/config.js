@@ -1,12 +1,10 @@
-import express from "express";
-import cors from "cors";
 import * as dotenv from 'dotenv';
 import 'dotenv/config';
 import sql from 'mssql';
-import todoRoutes from './models/todo.js';
 
-
-
+if (process.env.NODE_ENV === 'development') {
+  dotenv.config({ path: `.env.${process.env.NODE_ENV}`, debug: true });
+}
 
 const server = process.env.AZURE_SQL_SERVER;
 const database = process.env.AZURE_SQL_DATABASE;
@@ -22,33 +20,10 @@ console.log({
   password: process.env.AZURE_SQL_PASSWORD,
   port: process.env.AZURE_SQL_PORT,
 });
-const app = express();
-app.use(cors());
-app.use(express.json());
 
-app.listen(5000, () => console.log("Server up and running..."));
-app.use('/todo', todoRoutes);
-
-app.get("/get", (req, res) => {
-  res.status(200).json({
-    status: "UP",
-    message: "Server is running",
-    timestamp: new Date().toISOString(),
-  });
-});
-
-// Define route for the root path
-app.get('/', (req, res) => {
-    res.status(200).send('Welcome to the Todo App API! Dor');
-});
-
-// const PORT = 5000;
-// app.listen(PORT, () => {
-//     console.log(`Server is up and running on port ${PORT}`);
-// });
 export const noPasswordConfig = {
   server,
-  port,
+  port: parseInt(process.env.AZURE_SQL_PORT, 10),
   database,
   authentication: {
     type,
@@ -58,6 +33,7 @@ export const noPasswordConfig = {
     trustServerCertificate: false,
   },
 };
+
 
 export const passwordConfig = {
   server,

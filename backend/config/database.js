@@ -41,87 +41,46 @@ export default class Database {
 
     return result.rowsAffected[0];
   }
-
-  async create(data) {
+  //Priorities
+  // Return all list priorities
+  async readAllPriorities() {
     const request = this.poolconnection.request();
+    const result = await request.query(`SELECT * FROM priorities`);
 
-    request.input('firstName', sql.NVarChar(255), data.firstName);
-    request.input('lastName', sql.NVarChar(255), data.lastName);
-
-    const result = await request.query(
-      `INSERT INTO Person (firstName, lastName) VALUES (@firstName, @lastName)`
-    );
-
-    return result.rowsAffected[0];
+    return result.recordsets;
   }
-
-  async readAll() {
-    const request = this.poolconnection.request();
-    const result = await request.query(`SELECT * FROM Person`);
-
-    return result.recordsets[0];
-  }
-
-  async read(id) {
+  // Return list priorities with specific ID
+  async readPriorities(id) {
     const request = this.poolconnection.request();
     const result = await request
       .input('id', sql.Int, +id)
-      .query(`SELECT * FROM Person WHERE id = @id`);
+      .query(`SELECT * FROM priorities WHERE id = @id`);
+
+    return result.recordset[0];
+  }
+  // Categories
+  async readAllCategories() {
+    const request = this.poolconnection.request();
+    const result = await request.query(`SELECT * FROM categories`);
+
+    return result.recordsets;
+  }
+  async readCategories(id) {
+    const request = this.poolconnection.request();
+    const result = await request
+      .input('id', sql.Int, +id)
+      .query(`SELECT * FROM categories WHERE id = @id`);
 
     return result.recordset[0];
   }
 
-  async update(id, data) {
-    const request = this.poolconnection.request();
-
-    request.input('id', sql.Int, +id);
-    request.input('firstName', sql.NVarChar(255), data.firstName);
-    request.input('lastName', sql.NVarChar(255), data.lastName);
-
-    const result = await request.query(
-      `UPDATE Person SET firstName=@firstName, lastName=@lastName WHERE id = @id`
-    );
-
-    return result.rowsAffected[0];
-  }
-
-  async delete(id) {
-    const idAsNumber = Number(id);
-
-    const request = this.poolconnection.request();
-    const result = await request
-      .input('id', sql.Int, idAsNumber)
-      .query(`DELETE FROM Person WHERE id = @id`);
-
-    return result.rowsAffected[0];
-  }
-
-  async createTable() {
-    if (process.env.NODE_ENV === 'development') {
-      this.executeQuery(
-        `IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Person')
-         BEGIN
-           CREATE TABLE Person (
-             id int NOT NULL IDENTITY, 
-             firstName varchar(255), 
-             lastName varchar(255)
-           );
-         END`
-      )
-        .then(() => {
-          console.log('Table created');
-        })
-        .catch((err) => {
-          // Table may already exist
-          console.error(`Error creating table: ${err}`);
-        });
-    }
-  }
+  // Tasks
+  
+  
 }
 
 export const createDatabaseConnection = async (passwordConfig) => {
-  database = new Database(passwordConfig);
+  const database = new Database(passwordConfig);
   await database.connect();
-  await database.createTable();
   return database;
 };

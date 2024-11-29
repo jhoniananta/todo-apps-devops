@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <div className='flex flex-col gap-4'>
-        <Navbar isMobile={false}>My To-do List</Navbar>
+        <Navbar>My To-do List</Navbar>
         <Routes>
           <Route
             path="/"

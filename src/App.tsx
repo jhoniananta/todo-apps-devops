@@ -1,23 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Button from "./components/Button";
-import Typography from "./components/Typography";
-import AddScreen from "./screens/AddScreen";
-import "./styles/style.css";
-import Layout from "./Layout";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TodoCard from './components/card-todo/TodoCard';
+import Button from './components/Button';
+import Typography from './components/Typography';
+import AddScreen from './screens/AddScreen';
+import './styles/style.css';
+import Layout from './Layout';
 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         <Routes>
           <Route
             path="/"
             element={
               <Layout withNavbar withSearch childNav="My To-Do List">
-                <div>
-                  <h1 className="text-center bg-blue-50">
-                    Hello World Test PSO halo gais welcome back to
-                  </h1>
+                <div className='p-8'>
                   <div className="flex flex-wrap gap-4">
                     <Button variant="primary" size="lg">
                       Button
@@ -53,6 +51,15 @@ function App() {
                     <Typography variant="p" weight="bold">
                       Typography
                     </Typography>
+                  </div>
+                  <div className="h-8"></div>
+                  <div className="flex flex-wrap gap-4">
+                    <TodoCard
+                      title="Tugas Tekber"
+                      category="Study"
+                      priority="High"
+                      dateCreated="21/11/2024"
+                    />
                   </div>
                 </div>
               </Layout>

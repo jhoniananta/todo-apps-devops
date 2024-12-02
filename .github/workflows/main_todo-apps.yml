@@ -23,11 +23,11 @@ jobs:
       with:
         node-version: ${{matrix.node-version}}
     - name: Install dependencies
-      working-directory: ./frontend
+      working-directory: ./
       run: npm install  
 
     - name: Test Eslint Check
-      working-directory: ./frontend
+      working-directory: ./
       run: npm run lint
 
   build:
@@ -46,18 +46,18 @@ jobs:
           node-version: ${{matrix.node-version}}
 
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: .
         run: npm install
 
       - name: Build
-        working-directory: ./frontend
+        working-directory: .
         run: npm run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: ./frontend/dist
+          path: ./dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -70,10 +70,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-          path: ./frontend/dist
+          path: ./dist
       - name: Deploy to Azure App Service
         uses: Azure/webapps-deploy@v2
         with:
           app-name: "todo-apps"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./frontend/dist
+          package: ./dist

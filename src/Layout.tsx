@@ -17,7 +17,7 @@ export default function Layout({
   return (
     <>
       {withNavbar && <Navbar children={childNav} withSearch={withSearch} />}
-      <div className="mt-24">{children}</div>
+      <div className="pt-24">{children}</div>
     </>
   );
 }

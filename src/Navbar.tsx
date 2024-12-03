@@ -21,12 +21,13 @@ export default function Navbar({ children, withSearch=false }: NavbarProps) {
         <div className="px-4 sm:px-0 flex gap-4 items-center">
           <Input type="text" placeholder="Search" icon={<IoSearchOutline/>}/>
           <img
-            src="/public/icons/filter.png"
+            src="/icons/filter.png"
             alt="Filter Icon"
             className="hidden sm:block"
           />  
+          
           <img
-            src="/public/icons/filter-black.png"
+            src="/icons/filter-black.png"
             alt="Filter Icon"
             className="block sm:hidden"
           />

@@ -58,12 +58,14 @@ const AddScreen = () => {
         >
           <Button
             onClick={() => (window.location.href = "/")}
-            className="w-[120px] h-[22px] bg-[#E4EDFF] rounded-[8px]"
+            size="lg"
+            className="flex justify-center items-center  rounded-[10px]  h-[37px] w-full max-w-[326px]"
           >
             Cancel
           </Button>
           <Button
-            className="w-[120px] h-[22px] bg-[#E4EDFF] rounded-[8px]"
+            size="lg"
+            className="flex justify-center items-center  rounded-[10px] h-[37px] w-full max-w-[326px]"
           >
             Save
           </Button>

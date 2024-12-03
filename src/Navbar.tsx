@@ -25,6 +25,7 @@ export default function Navbar({ children, withSearch=false }: NavbarProps) {
             alt="Filter Icon"
             className="hidden sm:block"
           />  
+          
           <img
             src="/icons/filter-black.png"
             alt="Filter Icon"

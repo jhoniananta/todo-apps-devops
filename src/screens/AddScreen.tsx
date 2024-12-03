@@ -11,14 +11,7 @@ const AddScreen = () => {
           {/* To-do */}
           <label
             htmlFor="todo-input"
-            style={{
-              margin: "0",
-              color: "#000000",
-              fontWeight: "bold",
-              display: "block",
-              marginBottom: "0.5rem",
-              fontSize: "20px",
-            }}
+            className="m-0 text-black font-bold block mb-2 text-xl"
           >
             To-do
           </label>
@@ -32,14 +25,7 @@ const AddScreen = () => {
           {/* Categories */}
           <label
             htmlFor="categories-input"
-            style={{
-              margin: "1rem 0 0.5rem",
-              color: "#000000",
-              fontWeight: "bold",
-              display: "block",
-              marginBottom: "0.5rem",
-              fontSize: "20px",
-            }}
+            className="m-0 text-black font-bold block mb-2 text-xl mt-3"
           >
             Categories
           </label>
@@ -53,41 +39,22 @@ const AddScreen = () => {
           {/* Priority */}
           <label
             htmlFor="priority-input"
-            style={{
-              margin: "1rem 0 0.5rem",
-              color: "#000000",
-              fontWeight: "bold",
-              display: "block",
-              marginBottom: "0.5rem",
-              fontSize: "20px",
-            }}
-          >Priority</label>
+            className="m-0 text-black font-bold block mb-2 text-xl mt-3"
+          >Priority
+          </label>
           <DropdownMenu placeholder="Choose Priority" options={["Low", "Medium", "High"]}/>
 
           {/* Due Date */}
           <label
             htmlFor="date-input"
-            style={{
-              margin: "1rem 0 0.5rem",
-              color: "#000000",
-              fontWeight: "bold",
-              display: "block",
-              marginBottom: "0.5rem",
-              fontSize: "20px",
-            }}
+            className="m-0 text-black font-bold block mb-2 text-xl mt-3"
           >
             Due Date
           </label>
           <Input id="date-input" type="date" className="w-full" />
         </form>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
+        <div className="flex justify-center gap-4 mt-8"
         >
           <Button
             onClick={() => (window.location.href = "/")}

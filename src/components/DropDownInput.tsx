@@ -49,12 +49,14 @@ export default function DropDownMenu({
           isOpen ? "" : "hidden"
         } absolute   bg-[#F8FAFF] rounded-b-2xl w-full`}
       >
-        <ul className="py-1 text-sm" aria-labelledby="dropdownDefaultButton">
+        <ul className="pt-1 pb-3.5 text-sm" aria-labelledby="dropdownDefaultButton">
           {options.map((option, key) => (
             <li key={key}>
               <button
-                onClick={() => handleClick(option)}
-                className="block w-full text-left px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                onClick={(e) => {
+                  e.preventDefault(); // Mencegah event bubbling
+                  handleClick(option)}}
+                className="block w-full text-left px-4 py-1.5  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 {option}
               </button>

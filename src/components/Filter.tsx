@@ -35,7 +35,7 @@ export function DrawerDialogDemo({ isDesktop, open, onClose }: DrawerDialogDemoP
         </div>
         <DrawerFooter className ="pt-2 flex-shrink-0">
           <DrawerClose asChild>
-            <Button>Cancel</Button>
+            <Button className="rounded-xl">Cancel</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
@@ -65,7 +65,7 @@ function FilterForm({ className }: React.ComponentProps<"form">) {
           />
         </div>
       </div>
-      <Button className="mt-4" type="submit">
+      <Button className="mt-4 rounded-xl" type="submit">
         Apply
       </Button>
     </form>

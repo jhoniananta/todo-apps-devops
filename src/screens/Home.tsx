@@ -9,7 +9,6 @@ export default function Home() {
   const [todos, setTodos] = useState<TodoCardProps[]>([]);
 
   useEffect(() => {
-    console.log("Fetching data...");
     axios
       .get("http://localhost:5000/api/todo/tasks")
       .then((res) => {
@@ -24,12 +23,6 @@ export default function Home() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
-
-  console.log("Current Todos:", todos); // Akan kosong pada render pertama
-
-  useEffect(() => {
-    console.log("Updated Todos:", todos);
   }, [todos]);
 
   // console.log(todos);
@@ -53,6 +46,7 @@ export default function Home() {
             return (
               <TodoCard
                 key={index}
+                id={todo.id}
                 title={todo.title}
                 category={todo.category.toString()}
                 priority={todo.priority.toString()}

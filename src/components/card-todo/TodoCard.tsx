@@ -3,8 +3,10 @@ import Typography from '../Typography';
 import { PriorityBadge } from './PriorityBadge';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
+import axios from 'axios';
 
 export interface TodoCardProps {
+  id: number;
   title: string;
   category: string;
   priority: string;
@@ -12,6 +14,7 @@ export interface TodoCardProps {
 }
 
 const TodoCard: React.FC<TodoCardProps> = ({
+  id,
   title,
   category,
   priority,
@@ -21,6 +24,16 @@ const TodoCard: React.FC<TodoCardProps> = ({
   const handleCheckboxChange = () => {
     setIsCompleted(!isCompleted);
   };
+
+  const handleDelete= (id: number) =>{
+    axios.delete(`http://localhost:5000/api/todo/tasks/${id}`)
+    .then((res) => {
+      console.log("Berhasil Delete");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
 
   return (
     <div className="max-w-lg p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md flex gap-3">
@@ -41,6 +54,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
             <button
               className="ml-2 text-gray-400 hover:text-gray-600"
               title="Delete"
+              onClick={() => handleDelete(id)}
             >
               <AiOutlineDelete size={25} className='text-black'/>
             </button>

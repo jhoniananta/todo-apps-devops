@@ -3,7 +3,9 @@ on:
   push:
     branches:
       - main
-  pull_request: {}
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint:
@@ -23,7 +25,7 @@ jobs:
 
       - name: 🔬 Lint
         run: npm run lint
-typecheck:
+  typecheck:
     name: ʦ TypeScript
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +42,7 @@ typecheck:
 
       - name: 🔎 Type check
         run: npm run typecheck
-prettier:
+  prettier:
     name: 💅 Prettier
     runs-on: ubuntu-latest
     steps:
@@ -57,5 +59,3 @@ prettier:
 
       - name: 🔎 Type check
         run: npm run format
-
-```kkkk

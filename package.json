@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit --incremental false",
-    "format": "npm run format:write && eslint . --fix && npm typecheck && npm run lint",
+    "format": "npm run format:write && eslint . --fix && npm run typecheck && npm run lint",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "prepare": "husky install"

@@ -11,6 +11,7 @@ export interface TodoCardProps {
   category: string;
   priority: string;
   due_date: string;
+  isDone: boolean;
 }
 
 const TodoCard: React.FC<TodoCardProps> = ({
@@ -19,10 +20,16 @@ const TodoCard: React.FC<TodoCardProps> = ({
   category,
   priority,
   due_date,
+  isDone,
 }) => {
-  const [isCompleted, setIsCompleted] = React.useState(false);
+  const [isCompleted, setIsCompleted] = React.useState(isDone);
   const handleCheckboxChange = () => {
     setIsCompleted(!isCompleted);
+    axios.put(`http://localhost:5000/api/todo/tasks/${id}`, {
+      isDone: !isCompleted,
+    }).catch((err) => {
+      console.error(err);
+    });
   };
 
   const handleDelete= (id: number) =>{
@@ -45,12 +52,13 @@ const TodoCard: React.FC<TodoCardProps> = ({
             <Typography variant='p' className="text-gray-600">{category}</Typography>
           </div>
           <div className='flex flex-row gap-2'>
-            <button
+            <a
+              href={`/edit/${id}`}
               className="ml-2 text-gray-400 hover:text-gray-600"
               title="Edit"
             >
               <CiEdit size={25} className='text-black'/>
-            </button>
+            </a>
             <button
               className="ml-2 text-gray-400 hover:text-gray-600"
               title="Delete"

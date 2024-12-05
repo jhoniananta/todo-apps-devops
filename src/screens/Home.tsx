@@ -51,6 +51,7 @@ export default function Home() {
                 category={todo.category.toString()}
                 priority={todo.priority.toString()}
                 due_date={todo.due_date.toString()}
+                isDone={todo.isDone}
               />
             );
           })}

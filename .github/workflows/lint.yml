@@ -24,36 +24,36 @@ jobs:
       - name: 🔬 Lint
         run: npm run lint
 typecheck:
-    name: ʦ TypeScript
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇ Checkout repo
-        uses: actions/checkout@v4
+  name: ʦ TypeScript
+  runs-on: ubuntu-latest
+  steps:
+    - name: ⬇ Checkout repo
+      uses: actions/checkout@v4
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+    - name: ⎔ Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
 
-      - name: 📥 Download deps
-        run: npm install --frozen-lockfile
+    - name: 📥 Download deps
+      run: npm install --frozen-lockfile
 
-      - name: 🔎 Type check
-        run: npm run typecheck
+    - name: 🔎 Type check
+      run: npm run typecheck
 prettier:
-    name: 💅 Prettier
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇ Checkout repo
-        uses: actions/checkout@v4
+  name: 💅 Prettier
+  runs-on: ubuntu-latest
+  steps:
+    - name: ⬇ Checkout repo
+      uses: actions/checkout@v4
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+    - name: ⎔ Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
 
-      - name: 📥 Download deps
-        run: npm install --frozen-lockfile
+    - name: 📥 Download deps
+      run: npm install --frozen-lockfile
 
-      - name: 🔎 Type check
-        run: npm run format
+    - name: 🔎 Type check
+      run: npm run format

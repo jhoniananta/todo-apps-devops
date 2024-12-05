@@ -19,7 +19,7 @@ jobs:
           node-version: 20
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@HEAD
+        uses: npm install --frozen-lockfile
 
       - name: 🔬 Lint
         run: npm run lint

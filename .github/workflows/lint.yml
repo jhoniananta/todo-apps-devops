@@ -19,7 +19,7 @@ jobs:
           node-version: 20
 
       - name: 📥 Download deps
-        uses: npm install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: 🔬 Lint
         run: npm run lint
@@ -36,7 +36,7 @@ typecheck:
           node-version: 20
 
       - name: 📥 Download deps
-        uses: npm install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: 🔎 Type check
         run: npm run typecheck
@@ -53,7 +53,7 @@ prettier:
           node-version: 20
 
       - name: 📥 Download deps
-        uses: npm install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: 🔎 Type check
         run: npm run format

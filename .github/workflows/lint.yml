@@ -22,7 +22,7 @@ jobs:
         uses: bahmutov/npm-install@HEAD
 
       - name: 🔬 Lint
-        run: npm lint
+        run: npm run lint
 # typecheck:
 #     name: ʦ TypeScript
 #     runs-on: ubuntu-latest

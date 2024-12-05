@@ -34,9 +34,6 @@ const TodoCard: React.FC<TodoCardProps> = ({
 
   const handleDelete= (id: number) =>{
     axios.delete(`http://localhost:5000/api/todo/tasks/${id}`)
-    .then((res) => {
-      console.log("Berhasil Delete");
-    })
     .catch((err) => {
       console.error(err);
     });

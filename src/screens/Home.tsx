@@ -1,9 +1,40 @@
 import Layout from "../Layout";
-import TodoCard from "../components/card-todo/TodoCard";
+import TodoCard, { TodoCardProps } from "../components/card-todo/TodoCard";
 import Button from "../components/Button";
+import axios from "axios";
 import { FaPlus } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [todos, setTodos] = useState<TodoCardProps[]>([]);
+
+  useEffect(() => {
+    console.log("Fetching data...");
+    axios
+      .get("http://localhost:5000/api/todo/tasks")
+      .then((res) => {
+        const flatTodos: TodoCardProps[] = res.data.flat().map((todo: TodoCardProps)=> {
+          return {
+            ...todo,
+            due_date: new Date(todo.due_date).toLocaleDateString("id-ID"),
+          }
+        });
+        setTodos(flatTodos);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  console.log("Current Todos:", todos); // Akan kosong pada render pertama
+
+  useEffect(() => {
+    console.log("Updated Todos:", todos);
+  }, [todos]);
+
+  // console.log(todos);
+  if (todos.length === 0) return <div>Loading...</div>;
+
   return (
     <Layout withNavbar withSearch childNav="My To-Do List">
       <div className="p-8 flex flex-col gap-8 items-start">
@@ -17,12 +48,18 @@ export default function Home() {
           </Button>
         </a>
         <div className="flex flex-wrap gap-4">
-          <TodoCard
-            title="Tugas Tekber"
-            category="Study"
-            priority="High"
-            dateCreated="21/11/2024"
-          />
+          {todos.map((todo, index) => {
+            console.log("Todo", index, ":", todo);
+            return (
+              <TodoCard
+                key={index}
+                title={todo.title}
+                category={todo.category.toString()}
+                priority={todo.priority.toString()}
+                due_date={todo.due_date.toString()}
+              />
+            );
+          })}
         </div>
       </div>
     </Layout>

@@ -4,23 +4,24 @@ import { PriorityBadge } from './PriorityBadge';
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 
-interface TodoCardProps {
+export interface TodoCardProps {
   title: string;
   category: string;
   priority: string;
-  dateCreated: string;
+  due_date: string;
 }
 
 const TodoCard: React.FC<TodoCardProps> = ({
   title,
   category,
   priority,
-  dateCreated,
+  due_date,
 }) => {
   const [isCompleted, setIsCompleted] = React.useState(false);
   const handleCheckboxChange = () => {
     setIsCompleted(!isCompleted);
   };
+
   return (
     <div className="max-w-lg p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md flex gap-3">
       <input type='checkbox' className='w-4 h-4 mt-2' checked={isCompleted} onChange={handleCheckboxChange}/>
@@ -47,7 +48,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
         </div>
         <div className="mt-4 flex justify-between items-center gap-5">
           <PriorityBadge priority={priority} />
-          <Typography variant='p' className="text-sm text-gray-500">{dateCreated}</Typography>
+          <Typography variant='p' className="text-sm text-gray-500">{due_date}</Typography>
         </div>
       </div>
     </div>

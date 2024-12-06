@@ -48,15 +48,24 @@ _After downloading all prequities, you can follow this setup steps:_
     npm install
     ```
 5. Open the docker desktop
-6. Run the docker in root folder
+6. Delete all docker images:
     ```sh
-    docker compose up --watch
+    docker compose down —volumes
+    docker builder prune –force
     ```
-    if this things doesn't work run the docker using:
+7. Build docker images:
     ```sh
-    docker compose watch
+    docker compose build —no-cache
     ```
-
+8. Run the docker in root folder:
+    ```sh
+    docker compose up
+    ```
+9. Stop docker images (stop program):
+    ```sh
+    docker compose down –volumes
+    ```
+    
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

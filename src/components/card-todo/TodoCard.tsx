@@ -29,6 +29,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
       isDone: !isCompleted,
     }).catch((err) => {
       console.error(err);
+      console.log("Oke")
     });
   };
 

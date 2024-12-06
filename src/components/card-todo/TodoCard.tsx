@@ -24,7 +24,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
 }) => {
   const [isCompleted, setIsCompleted] = React.useState(isDone);
   const handleCheckboxChange = () => {
-    setIsCompleted(!isCompleted);
+    setIsCompleted(!isCompleted); 
     axios.put(`http://localhost:5000/api/todo/tasks/${id}`, {
       isDone: !isCompleted,
     }).catch((err) => {
@@ -42,7 +42,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
 
   return (
     <div className="max-w-lg p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md flex gap-3">
-      <input type='checkbox' className='w-4 h-4 mt-2' checked={isCompleted} onChange={handleCheckboxChange}/>
+      <input type='checkbox' className='w-4 h-4 mt-2 cursor-pointer' checked={isDone} onChange={handleCheckboxChange}/>
       <div className='flex flex-col gap-2'>
         <div className="flex justify-between items-start gap-14">
           <div>

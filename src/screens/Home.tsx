@@ -4,10 +4,12 @@ import Button from "../components/Button";
 import axios from "axios";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import Loading from "../Loading";
 
 export default function Home() {
   const [todos, setTodos] = useState<TodoCardProps[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/todo/tasks")
@@ -19,14 +21,16 @@ export default function Home() {
           }
         });
         setTodos(flatTodos);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error(err);
+        setIsLoading(false);
       });
   }, [todos]);
 
   // console.log(todos);
-  if (todos.length === 0) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <Layout withNavbar withSearch childNav="My To-Do List">
@@ -42,7 +46,6 @@ export default function Home() {
         </a>
         <div className="flex flex-wrap gap-4">
           {todos.map((todo, index) => {
-            console.log("Todo", index, ":", todo);
             return (
               <TodoCard
                 key={index}

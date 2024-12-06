@@ -43,7 +43,7 @@ export default function Home() {
         console.error(err);
         setIsLoading(false);
       });
-  }, [todos]);
+  }, [fetch, todos]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -82,7 +82,7 @@ export default function Home() {
     } else {
       setFilterTodos(todos);
     }
-  }, [categoryChosen, priorityChosen, search, todos]);
+  }, [categoryChosen, isFilter, isSearch, priorityChosen, search, todos]);
 
   const handleFilter = (categoryChosen: string, priorityChosen: string) => {
     setFilterOpen(false);

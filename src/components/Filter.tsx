@@ -44,6 +44,7 @@ export function DrawerDialogDemo({ isDesktop, open, onClose }: DrawerDialogDemoP
 }
 
 function FilterForm({ className }: React.ComponentProps<"form">) {
+  // const [priorityChosen, setPriorityChosen] = useState<string>("");
   return (
     <form className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-2">
@@ -62,6 +63,7 @@ function FilterForm({ className }: React.ComponentProps<"form">) {
           <DropdownMenu 
             placeholder="Choose Priority" 
             options={["Low", "Medium", "High"]} 
+            handleChange={() => {}}
           />
         </div>
       </div>

@@ -39,29 +39,23 @@ _After downloading all prequities, you can follow this setup steps:_
     ```
 3. Install package manage for frontend side
     ```sh
-    cd frontend
     npm install
     ```
-4. Install package manage for backend side
-    ```sh
-    cd backend
-    npm install
-    ```
-5. Open the docker desktop
-6. Delete all docker images:
+4. Open the docker desktop
+5. Delete all docker images:
     ```sh
     docker compose down —volumes
     docker builder prune –force
     ```
-7. Build docker images:
+6. Build docker images:
     ```sh
     docker compose build —no-cache
     ```
-8. Run the docker in root folder:
+7. Run the docker in root folder:
     ```sh
     docker compose up
     ```
-9. Stop docker images (stop program):
+8. Stop docker images (stop program):
     ```sh
     docker compose down –volumes
     ```

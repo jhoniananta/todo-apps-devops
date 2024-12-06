@@ -6,10 +6,11 @@ type InputProps = {
   type: string;
   className?: string;
   icon?: React.ReactNode;
+  handleClickIcon?: () => void;
 } & React.ComponentProps<"input">;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type="text", icon, ...props }, ref) => {
+  ({ className, type="text", icon, handleClickIcon= ()=> {}, ...props }, ref) => {
     return (
       <div
         className={cn(
@@ -24,9 +25,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className
           )}
           ref={ref}
+          value={props.value}
           {...props}
         />
-        {icon}
+        <button onClick={handleClickIcon}>{icon}</button>
       </div>
     );
   }

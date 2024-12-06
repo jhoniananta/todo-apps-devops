@@ -6,6 +6,8 @@ type LayoutProps = {
   childNav?: string;
   withNavbar?: boolean;
   withSearch?: boolean;
+  handleFilterClick?: () => void;
+  handleSearch?: (search: string) => void;
 };
 
 export default function Layout({
@@ -13,10 +15,12 @@ export default function Layout({
   childNav,
   withNavbar,
   withSearch,
+  handleFilterClick,
+  handleSearch = () => {},
 }: LayoutProps) {
   return (
     <>
-      {withNavbar && <Navbar children={childNav} withSearch={withSearch} />}
+      {withNavbar && <Navbar children={childNav} withSearch={withSearch} handleFilterClick={handleFilterClick} handleSearch={(search: string )=> handleSearch(search)}/>}
       <div className="pt-24">{children}</div>
     </>
   );

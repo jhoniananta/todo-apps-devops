@@ -94,7 +94,7 @@ const AddScreen = () => {
             Categories
           </label>
           <DropdownMenu
-            placeholder="Choose Categoty"
+            placeholder="Choose Category"
             options={category}
             handleChange={(selectedOption) => setCategoryChosen(selectedOption)}
           />

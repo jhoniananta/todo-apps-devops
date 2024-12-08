@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AddScreen from './screens/AddScreen';
 import './styles/style.css';
 import Home from './screens/Home';
+import EditScreen from './screens/EditScreen';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             }
           />
           <Route path="/add" element={<AddScreen />} />
+          <Route path="/edit/:id" element={<EditScreen />} />
         </Routes>
       </div>
     </Router>

@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import { DrawerDialogDemo } from "../components/Filter";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [todos, setTodos] = useState<TodoCardProps[]>([]);
@@ -19,6 +20,7 @@ export default function Home() {
   const [priorityChosen, setPriorityChosen] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [fetch, setFetch] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -120,15 +122,16 @@ export default function Home() {
         />
       )}
       <div className="p-8 flex flex-col gap-8 items-start">
-        <a href="/add" className="w-full">
-          <Button
-            size="lg"
-            className="flex justify-center items-center max-md:mt-4 rounded-[30px] md:rounded-[50px] h-[37px] w-full md:h-[83px] md:w-[349px]"
-            leftIcon={FaPlus}
-          >
-            Add Todo
-          </Button>
-        </a>
+        {/* <a href="/add" className="w-full"> */}
+        <Button
+          size="lg"
+          className="flex justify-center items-center max-md:mt-4 rounded-[30px] md:rounded-[50px] h-[37px] w-full md:h-[83px] md:w-[349px]"
+          leftIcon={FaPlus}
+          onClick={() => navigate("/add")}
+        >
+          Add Todo
+        </Button>
+        {/* </a> */}
         <div className="flex flex-wrap gap-4">
           {filterTodos.map((todo, index) => {
             return (

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Input } from "../components/InputRightIcon";
 import Button from "../components/Button";
 import DropdownMenu from "../components/DropDownInput";
 import Layout from "../Layout";
+import Loading from "../Loading";
 
 const EditScreen = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const EditScreen = () => {
   const [priorityChosen, setPriorityChosen] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -25,10 +27,14 @@ const EditScreen = () => {
         ]);
 
         setCategory(
-          categoriesRes.data[0].map((item: { id: number; name: string }) => item.name)
+          categoriesRes.data[0].map(
+            (item: { id: number; name: string }) => item.name
+          )
         );
         setPriority(
-          prioritiesRes.data[0].map((item: { id: number; name: string }) => item.name)
+          prioritiesRes.data[0].map(
+            (item: { id: number; name: string }) => item.name
+          )
         );
       } catch (err) {
         console.error("Error fetching categories or priorities:", err);
@@ -68,13 +74,13 @@ const EditScreen = () => {
     axios
       .put(`http://localhost:5000/api/todo/tasks/${id}`, todoData)
       .then(() => {
-        window.location.href = "/";
+        navigate("/");
       })
       .catch((err) => console.error(err));
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -82,7 +88,10 @@ const EditScreen = () => {
       <div className="px-4 lg:px-8">
         <form>
           {/* Title */}
-          <label htmlFor="todo-input" className="m-0 text-black font-bold block mb-2 text-xl">
+          <label
+            htmlFor="todo-input"
+            className="m-0 text-black font-bold block mb-2 text-xl"
+          >
             To-do
           </label>
           <Input
@@ -91,11 +100,14 @@ const EditScreen = () => {
             placeholder="What needs to be done?"
             className="w-full"
             value={title}
-            onChange={(e) => setTitle(e.target.value)} 
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           {/* Categories */}
-          <label htmlFor="categories-input" className="m-0 text-black font-bold block mb-2 text-xl mt-3">
+          <label
+            htmlFor="categories-input"
+            className="m-0 text-black font-bold block mb-2 text-xl mt-3"
+          >
             Categories
           </label>
           <DropdownMenu
@@ -106,18 +118,24 @@ const EditScreen = () => {
           />
 
           {/* Priority */}
-          <label htmlFor="priority-input" className="m-0 text-black font-bold block mb-2 text-xl mt-3">
+          <label
+            htmlFor="priority-input"
+            className="m-0 text-black font-bold block mb-2 text-xl mt-3"
+          >
             Priority
           </label>
           <DropdownMenu
             placeholder="Choose Priority"
             options={priority}
             selected={priorityChosen}
-            handleChange={(selectedOption) => setPriorityChosen(selectedOption)} 
+            handleChange={(selectedOption) => setPriorityChosen(selectedOption)}
           />
 
           {/* Due Date */}
-          <label htmlFor="date-input" className="m-0 text-black font-bold block mb-2 text-xl mt-3">
+          <label
+            htmlFor="date-input"
+            className="m-0 text-black font-bold block mb-2 text-xl mt-3"
+          >
             Due Date
           </label>
           <Input

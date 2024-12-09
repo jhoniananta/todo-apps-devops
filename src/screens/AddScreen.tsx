@@ -4,6 +4,7 @@ import DropdownMenu from "../components/DropDownInput";
 import Layout from "../Layout";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddScreen = () => {
   const [priority, setPriority] = useState<string[]>([]);
@@ -12,35 +13,32 @@ const AddScreen = () => {
   const [priorityChosen, setPriorityChosen] = useState<string>("");
   const titleRef = useRef<HTMLInputElement>(null);
   const dueDateRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/todo/categories")
-      .then((res) => {
-        const categoryNames: string[] = res.data[0].map(
-          (item: { id: number; name: string }) => {
-            return item.name;
-          }
-        );
-        setCategory(categoryNames);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const fetchOptions = async () => {
+      try {
+        const [categoriesRes, prioritiesRes] = await Promise.all([
+          axios.get("http://localhost:5000/api/todo/categories"),
+          axios.get("http://localhost:5000/api/todo/priorities"),
+        ]);
 
-    axios
-      .get("http://localhost:5000/api/todo/priorities")
-      .then((res) => {
-        const priorityNames: string[] = res.data[0].map(
-          (item: { id: number; name: string }) => {
-            return item.name;
-          }
+        setCategory(
+          categoriesRes.data[0].map(
+            (item: { id: number; name: string }) => item.name
+          )
         );
-        setPriority(priorityNames);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        setPriority(
+          prioritiesRes.data[0].map(
+            (item: { id: number; name: string }) => item.name
+          )
+        );
+      } catch (err) {
+        console.error("Error fetching categories or priorities:", err);
+      }
+    };
+
+    fetchOptions();
   }, []);
 
   const handleSubmit = () => {
@@ -60,7 +58,7 @@ const AddScreen = () => {
       .post("http://localhost:5000/api/todo/tasks", todoData)
       .then((res) => {
         console.log(res.data);
-        window.location.href = "/";
+        navigate("/");
       })
       .catch((err) => {
         console.error(err);
@@ -129,7 +127,7 @@ const AddScreen = () => {
 
         <div className="flex justify-center gap-4 mt-8">
           <Button
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
             size="lg"
             className="flex justify-center items-center  rounded-[10px]  h-[37px] w-full max-w-[326px]"
           >

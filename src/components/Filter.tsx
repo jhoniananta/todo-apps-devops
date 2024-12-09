@@ -76,33 +76,29 @@ function FilterForm({ className, handleFilter }: FilterFormProps) {
   const [priorityChosen, setPriorityChosen] = useState<string>("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/todo/categories")
-      .then((res) => {
-        const categoryNames: string[] = res.data[0].map(
-          (item: { id: number; name: string }) => {
-            return item.name;
-          }
-        );
-        setCategory(categoryNames);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const fetchOptions = async () => {
+      try {
+        const [categoriesRes, prioritiesRes] = await Promise.all([
+          axios.get("http://localhost:5000/api/todo/categories"),
+          axios.get("http://localhost:5000/api/todo/priorities"),
+        ]);
 
-    axios
-      .get("http://localhost:5000/api/todo/priorities")
-      .then((res) => {
-        const priorityNames: string[] = res.data[0].map(
-          (item: { id: number; name: string }) => {
-            return item.name;
-          }
+        setCategory(
+          categoriesRes.data[0].map(
+            (item: { id: number; name: string }) => item.name
+          )
         );
-        setPriority(priorityNames);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        setPriority(
+          prioritiesRes.data[0].map(
+            (item: { id: number; name: string }) => item.name
+          )
+        );
+      } catch (err) {
+        console.error("Error fetching categories or priorities:", err);
+      }
+    };
+
+    fetchOptions();
   }, []);
 
   const handleClick = () => {

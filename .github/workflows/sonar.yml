@@ -19,13 +19,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "20.x"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run SonarQube Scanner
-        uses: sonarsource/sonarcloud-github-action@v1
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@v1
         with:
-          token: "sqa_a66ac11302d5a7b0f524b1fef7b4482200b9e040"
-          projectKey: "todo-apps" # Replace with your SonarQube project key
+          entryPoint: ./node_modules/.bin/sonar-scanner # This points to your SonarQube scanner
+          args: -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}} -Dsonar.host.url=http://localhost:9000
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Set this secret in GitHub repository

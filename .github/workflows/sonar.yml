@@ -27,5 +27,5 @@ jobs:
       - name: Run SonarQube Scanner
         uses: sonarsource/sonarcloud-github-action@v1
         with:
-          token: "todo-apps"
-          projectKey: "sqa_a66ac11302d5a7b0f524b1fef7b4482200b9e040" # Replace with your SonarQube project key
+          token: "sqa_a66ac11302d5a7b0f524b1fef7b4482200b9e040"
+          projectKey: "todo-apps" # Replace with your SonarQube project key

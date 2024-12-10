@@ -22,6 +22,7 @@ jobs:
               -Dsonar.projectKey=todo-apps-devops
               -Dsonar.organization=jhoniananta
   test:
+    needs: SonarCloudScan
     runs-on: ubuntu-latest
     strategy:
       matrix:

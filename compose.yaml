@@ -15,5 +15,20 @@ services:
       - frontend_node_modules:/app/node_modules  # Named volume for node_modules
     command: npm run dev  # Assuming you have a dev script with hot reload
 
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:h2:tcp://localhost:9092/sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
 volumes:
   frontend_node_modules:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:

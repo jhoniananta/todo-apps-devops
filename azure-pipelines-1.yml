@@ -1,0 +1,36 @@
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)' # Tag unik
+  repository: 'todo-apps-devops'
+  DB_HOST: 'todolistpso.database.windows.net'
+  DB_NAME: 'todolist_database'
+  DB_USER: 'adminpso'
+  DB_PASS: 'Psofp123'
+
+stages:
+- stage: Build
+  displayName: Build Docker Image
+  jobs:
+  - job: Build
+    displayName: Build Docker Image
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    # Build Docker image
+    - task: Docker@2
+      displayName: Build Docker Image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
+        tags: |
+          $(repository):$(tag)
+
+    # Optional: Jalankan aplikasi untuk testing
+    - script: |
+        docker run -e DB_HOST=$(DB_HOST) -e DB_NAME=$(DB_NAME) -e DB_USER=$(DB_USER) -e DB_PASS=$(DB_PASS) $(repository):$(tag)
+      displayName: Test Database Connection

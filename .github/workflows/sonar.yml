@@ -1,0 +1,31 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main      
+jobs:
+  sonar:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run SonarQube Scanner
+        uses: sonarsource/sonarcloud-github-action@v1
+        with:
+          token: "todo-apps"
+          projectKey: "sqa_a66ac11302d5a7b0f524b1fef7b4482200b9e040" # Replace with your SonarQube project key

@@ -24,10 +24,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@v1
-        with:
-          entryPoint: ./node_modules/.bin/sonar-scanner # This points to your SonarQube scanner
-          args: -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}} -Dsonar.host.url=http://localhost:9000
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Set this secret in GitHub repository
+      - name: SonarQube Analysis
+        run: |
+          sonar-scanner \
+          -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}} \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=http://localhost:9000 \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}

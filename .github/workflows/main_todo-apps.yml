@@ -1,9 +1,10 @@
 name: Deploy to Azure App Service
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   SonarCloudScan:
@@ -15,77 +16,77 @@ jobs:
         - name: SonarCloud Scan
           uses: sonarsource/sonarcloud-github-action@master
           env:
-            GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           with:
             args: >
               -Dsonar.projectKey=todo-apps-devops
               -Dsonar.organization=jhoniananta
-  test:
-    needs: SonarCloudScan
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
-    steps:
-    - name: Checkout Source
-      uses: actions/checkout@v4
-    - name: Set up Node.js version
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{matrix.node-version}}
-    - name: Install dependencies
-      working-directory: ./
-      run: npm install  
+  # test:
+  #   needs: SonarCloudScan
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [20.x]
+  #   steps:
+  #   - name: Checkout Source
+  #     uses: actions/checkout@v4
+  #   - name: Set up Node.js version
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: ${{matrix.node-version}}
+  #   - name: Install dependencies
+  #     working-directory: ./
+  #     run: npm install  
 
-    - name: Test Eslint Check
-      working-directory: ./
-      run: npm run lint
+  #   - name: Test Eslint Check
+  #     working-directory: ./
+  #     run: npm run lint
 
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v4
+  # build:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [20.x]
+  #   steps:
+  #     - name: Checkout Source
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{matrix.node-version}}
+  #     - name: Set up Node.js version
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{matrix.node-version}}
 
-      - name: Install dependencies
-        working-directory: .
-        run: npm install
+  #     - name: Install dependencies
+  #       working-directory: .
+  #       run: npm install
 
-      - name: Build
-        working-directory: .
-        run: npm run build
+  #     - name: Build
+  #       working-directory: .
+  #       run: npm run build
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: ./dist
+  #     - name: Upload artifact for deployment job
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: dist
+  #         path: ./dist
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v4
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Checkout Source
+  #       uses: actions/checkout@v4
 
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
-          path: ./dist
-      - name: Deploy to Azure App Service
-        uses: Azure/webapps-deploy@v2
-        with:
-          app-name: "todo-apps"
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./dist
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: dist
+  #         path: ./dist
+  #     - name: Deploy to Azure App Service
+  #       uses: Azure/webapps-deploy@v2
+  #       with:
+  #         app-name: "todo-apps"
+  #         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+  #         package: ./dist

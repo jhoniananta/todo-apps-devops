@@ -6,6 +6,7 @@ on:
       - main
   workflow_dispatch:
 
+    
 jobs:
   SonarCloudScan:
       runs-on: ubuntu-latest

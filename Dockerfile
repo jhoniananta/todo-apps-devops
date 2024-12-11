@@ -9,7 +9,7 @@ COPY package*.json ./
 
 # Set the environment variable
 ARG VITE_BASE_URL
-ENV VITE_BASE_URL=$VITE_BASE_URL
+RUN echo "VITE_BASE_URL=$VITE_BASE_URL" > .env
 
 # Install dependencies
 RUN npm install

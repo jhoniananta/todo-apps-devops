@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy package.json that save dependencies
 COPY package*.json ./
 
+# Set the environment variable
+ENV VITE_BASE_URL=$VITE_BASE_URL
+
 # Install dependencies
 RUN npm install
 RUN npm i -g serve

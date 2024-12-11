@@ -64,7 +64,7 @@ jobs:
 
       - name: Build and push docker image
         run: |
-          docker build --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} . -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
+          docker build --build-arg VITE_BASE_URL=${{secrets.BASE_URL_ENDPOINT}} . -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
           docker push acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
       
       - name: Deploy to Azure Web App

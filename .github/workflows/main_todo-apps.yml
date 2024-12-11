@@ -6,23 +6,22 @@ on:
       - main
   workflow_dispatch:
 
-
 jobs:
   SonarCloudScan:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: SonarCloud Scan
-          uses: sonarsource/sonarcloud-github-action@master
-          env:
-            GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          with:
-            args: >
-              -Dsonar.projectKey=todo-apps-devops
-              -Dsonar.organization=jhoniananta
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=todo-apps-devops
+            -Dsonar.organization=jhoniananta
   test:
     needs: SonarCloudScan
     runs-on: ubuntu-latest
@@ -30,19 +29,19 @@ jobs:
       matrix:
         node-version: [20.x]
     steps:
-    - name: Checkout Source
-      uses: actions/checkout@v4
-    - name: Set up Node.js version
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{matrix.node-version}}
-    - name: Install dependencies
-      working-directory: ./
-      run: npm install  
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Set up Node.js version
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: Install dependencies
+        working-directory: ./
+        run: npm install
 
-    - name: Test Eslint Check
-      working-directory: ./
-      run: npm run lint
+      - name: Test Eslint Check
+        working-directory: ./
+        run: npm run lint
 
   build-and-deploy-using-docker:
     needs: test
@@ -64,12 +63,14 @@ jobs:
 
       - name: Build and push docker image
         run: |
-          docker build . -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
+          docker build . \ 
+            --build-arg VITE_BASE_URL=${{secrets.BASE_URL_ENDPOINT}} \ 
+            -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
           docker push acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
-      
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'todo-apps-frontend'
+          app-name: "todo-apps-frontend"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: 'acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}'
+          images: "acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}"

@@ -24,7 +24,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/todo/tasks")
+      .get(`${import.meta.env.VITE_BASE_URL}/api/todo/tasks`)
       .then((res) => {
         const flatTodos: TodoCardProps[] = res.data
           .flat()

@@ -22,8 +22,8 @@ const EditScreen = () => {
     const fetchOptions = async () => {
       try {
         const [categoriesRes, prioritiesRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/todo/categories"),
-          axios.get("http://localhost:5000/api/todo/priorities"),
+          axios.get(`${import.meta.env.VITE_BASE_URL}/api/todo/categories`),
+          axios.get(`${import.meta.env.VITE_BASE_URL}/api/todo/priorities`),
         ]);
 
         setCategory(
@@ -46,7 +46,7 @@ const EditScreen = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/todo/tasks/${id}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/api/todo/tasks/${id}`)
       .then((res) => {
         const task = res.data;
 
@@ -72,7 +72,7 @@ const EditScreen = () => {
     };
 
     axios
-      .put(`http://localhost:5000/api/todo/tasks/${id}`, todoData)
+      .put(`${import.meta.env.VITE_BASE_URL}/api/todo/tasks/${id}`, todoData)
       .then(() => {
         navigate("/");
       })

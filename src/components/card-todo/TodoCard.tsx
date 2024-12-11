@@ -25,7 +25,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
   const [isCompleted, setIsCompleted] = React.useState(isDone);
   const handleCheckboxChange = () => {
     setIsCompleted(!isCompleted); 
-    axios.put(`http://localhost:5000/api/todo/tasks/${id}`, {
+    axios.put(`${import.meta.env.VITE_BASE_URL}/api/todo/tasks/${id}`, {
       isDone: !isCompleted,
     }).catch((err) => {
       console.error(err);
@@ -34,7 +34,7 @@ const TodoCard: React.FC<TodoCardProps> = ({
   };
 
   const handleDelete= (id: number) =>{
-    axios.delete(`http://localhost:5000/api/todo/tasks/${id}`)
+    axios.delete(`${import.meta.env.VITE_BASE_URL}/api/todo/tasks/${id}`)
     .catch((err) => {
       console.error(err);
     });

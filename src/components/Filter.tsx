@@ -79,8 +79,8 @@ function FilterForm({ className, handleFilter }: FilterFormProps) {
     const fetchOptions = async () => {
       try {
         const [categoriesRes, prioritiesRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/todo/categories"),
-          axios.get("http://localhost:5000/api/todo/priorities"),
+          axios.get(`${import.meta.env.VITE_BASE_URL}/api/todo/categories`),
+          axios.get(`${import.meta.env.VITE_BASE_URL}/api/todo/priorities`),
         ]);
 
         setCategory(

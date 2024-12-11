@@ -9,7 +9,7 @@ COPY package*.json ./
 
 # Set the environment variable
 ARG VITE_BASE_URL
-RUN echo "VITE_BASE_URL=$VITE_BASE_URL" > .env
+ENV VITE_BASE_URL=$VITE_BASE_URL
 
 # Install dependencies
 RUN npm install
@@ -17,6 +17,7 @@ RUN npm i -g serve
 
 # Copy the project without node_modules
 COPY . .
+COPY .env-example .env
 
 # Build the project
 RUN npm run build

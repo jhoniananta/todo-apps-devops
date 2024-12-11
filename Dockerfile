@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Set the environment variable
+ARG VITE_BASE_URL
 ENV VITE_BASE_URL=$VITE_BASE_URL
 
 # Install dependencies

@@ -22,8 +22,3 @@ EXPOSE 3000
 
 # Run the application
 CMD ["serve", "-s", "dist"]
-
-
-
-
-

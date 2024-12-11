@@ -80,11 +80,25 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
+      # Build and push Container image from docker to Azure Container Registry
+      - name: Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: acrcloudtodoapps.azurecr.io
+          username: ${{ secrets.REGISTERY_USERNAME }}
+          password: ${{ secrets.REGISTERY_PASSWORD }}
+
+      - name: Build and push docker image
+        run: |
+          docker build . -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
+          docker push acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: dist
           path: ./dist
+          
       - name: Deploy to Azure App Service
         uses: Azure/webapps-deploy@v2
         with:

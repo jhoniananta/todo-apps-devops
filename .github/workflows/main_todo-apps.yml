@@ -44,7 +44,7 @@ jobs:
       working-directory: ./
       run: npm run lint
 
-  build:
+  build-and-deploy-using-docker:
     needs: test
     runs-on: ubuntu-latest
     strategy:
@@ -54,33 +54,7 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{matrix.node-version}}
-
-      - name: Install dependencies
-        working-directory: .
-        run: npm install
-
-      - name: Build
-        working-directory: .
-        run: npm run build
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: ./dist
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v4
-
-      # Build and push Container image from docker to Azure Container Registry
+        # Build and push Container image from docker to Azure Container Registry
       - name: Login to ACR
         uses: azure/docker-login@v1
         with:
@@ -92,16 +66,49 @@ jobs:
         run: |
           docker build . -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
           docker push acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
-
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+      
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
         with:
-          name: dist
-          path: ./dist
-          
-      - name: Deploy to Azure App Service
-        uses: Azure/webapps-deploy@v2
-        with:
-          app-name: "todo-apps"
+          app-name: 'todo-apps-frontend'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./dist
+          images: 'acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}'
+
+      # - name: Set up Node.js version
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: ${{matrix.node-version}}
+
+      # - name: Install dependencies
+      #   working-directory: .
+      #   run: npm install
+
+      # - name: Build
+      #   working-directory: .
+      #   run: npm run build
+
+      # - name: Upload artifact for deployment job
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dist
+      #     path: ./dist
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Checkout Source
+  #       uses: actions/checkout@v4
+
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: dist
+  #         path: ./dist
+
+  #     - name: Deploy to Azure App Service
+  #       uses: Azure/webapps-deploy@v2
+  #       with:
+  #         app-name: "todo-apps"
+  #         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+  #         package: ./dist

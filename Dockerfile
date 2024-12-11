@@ -17,6 +17,7 @@ RUN npm i -g serve
 
 # Copy the project without node_modules
 COPY . .
+COPY .env-example .env
 
 # Build the project
 RUN npm run build

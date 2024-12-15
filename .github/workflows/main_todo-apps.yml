@@ -1,4 +1,4 @@
-name: Deploy to Azure App Service
+name: Deploy to Google Cloud Platform
 
 on:
   push:
@@ -24,6 +24,7 @@ jobs:
               -Dsonar.projectKey=todo-apps-devops
               -Dsonar.organization=jhoniananta
   test:
+    name: Test and Lint
     needs: SonarCloudScan
     runs-on: ubuntu-latest
     strategy:
@@ -45,6 +46,7 @@ jobs:
       run: npm run lint
 
   build-and-deploy-using-docker:
+    name: Build and Deploy to GCP using GCR
     needs: test
     runs-on: ubuntu-latest
     strategy:

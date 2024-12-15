@@ -64,7 +64,7 @@ jobs:
           password: ${{ secrets.GCP_SA_KEY }}
 
       - name: Build Docker Image
-        run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/todo-apps:${{ github.sha }} .
+        run: docker build --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} . -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/todo-apps:${{ github.sha }}
 
       - name: Push Docker Image
         run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/todo-apps:${{ github.sha }}

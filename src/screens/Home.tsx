@@ -107,7 +107,7 @@ export default function Home() {
     <Layout
       withNavbar
       withSearch
-      childNav="My To-Do List"
+      childNav="My ToDo-List"
       handleFilterClick={handleFilterClick}
       handleSearch={(search: string) => handleSearch(search)}
     >

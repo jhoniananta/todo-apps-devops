@@ -83,22 +83,3 @@ jobs:
       - name: Deploy to App Engine
         run: gcloud app deploy --image-url=gcr.io/${{ secrets.GCP_PROJECT_ID }}/todo-apps:${{ github.sha }} --quiet
       
-      #   # Build and push Container image from docker to Azure Container Registry
-      # - name: Login to ACR
-      #   uses: azure/docker-login@v1
-      #   with:
-      #     login-server: acrcloudtodoapps.azurecr.io
-      #     username: ${{ secrets.REGISTERY_USERNAME }}
-      #     password: ${{ secrets.REGISTERY_PASSWORD }}
-
-      # - name: Build and push docker image
-      #   run: |
-      #     docker build --build-arg VITE_BASE_URL=${{secrets.VITE_BASE_URL}} . -t acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
-      #     docker push acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}
-      
-      # - name: Deploy to Azure Web App
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: 'todo-apps-frontend'
-      #     publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-      #     images: 'acrcloudtodoapps.azurecr.io/myapp:${{ github.sha }}'
